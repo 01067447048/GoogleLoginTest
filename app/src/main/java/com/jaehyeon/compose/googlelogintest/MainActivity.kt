@@ -36,11 +36,9 @@ class MainActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         navi.init()
         activityResultLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            Log.e(javaClass.simpleName, "onCreate: ${result.resultCode}", )
             if (result.resultCode == RESULT_OK) {
                 GoogleSignIn.getSignedInAccountFromIntent(result.data).apply {
                     addOnSuccessListener {
-                        Log.e(javaClass.simpleName, "onCreate: ${it.email}", )
                         model.setId(it.id ?: "")
                         model.setEmail(it.email ?: "")
                         navi.navigateTo(FragmentType.SUB)
